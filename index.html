@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Família Cortez — Caixa</title>
+<style>
+:root {
+  --bg-dark: #0a0604;
+  --panel-bg: linear-gradient(135deg, #18100a 0%, #100a06 100%);
+  --border-gold: #d4a373;
+  --border-dark: #332014;
+  --text-main: #fcf1e2;
+  --text-muted: #bc986c;
+  --accent-primary: #b05721;
+  --accent-hover: #c46426;
+  --accent-danger: #9e2a2b;
+  --accent-danger-hover: #b63435;
+  --btn-bg: #22140c;
+  --btn-hover: #321e12;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a100a 0%, var(--bg-dark) 100%);
+  color: var(--text-main);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+.app {
+  width: min(1120px, 100%);
+  display: grid;
+  grid-template-columns: 1.45fr 0.95fr;
+  gap: 24px;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid rgba(212, 163, 115, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 24px;
+}
+
+.header {
+  text-align: center;
+  grid-column: 1 / -1;
+  background: linear-gradient(180deg, #1f130b 0%, #100905 100%);
+  border-bottom: 2px solid var(--border-gold);
+  padding: 24px;
+  border-radius: 16px;
+}
+
+.title {
+  font-family: Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-size: 34px;
+  color: #fae1cc;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  font-weight: 700;
+}
+
+.sub {
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 4px;
+  margin-top: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #e5b982;
+  border-bottom: 1px solid var(--border-dark);
+  padding-bottom: 10px;
+  margin: 0 0 16px;
+}
+
+.category {
+  color: var(--text-muted);
+  margin: 20px 0 10px;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(188, 152, 108, 0.2);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+button.product-btn {
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  background: var(--btn-bg);
+  color: var(--text-main);
+  padding: 12px 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  font-family: inherit;
+  transition: background 0.2s, transform 0.1s, border-color 0.2s;
+}
+
+button.product-btn:hover {
+  background: var(--btn-hover);
+  border-color: var(--border-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(176, 87, 33, 0.25);
+}
+
+button.product-btn:active {
+  transform: translateY(0);
+}
+
+.product-name {
+  font-weight: 500;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.price {
+  white-space: nowrap;
+  color: #f7d59c;
+  font-weight: 700;
+  font-size: 13px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(212, 163, 115, 0.15);
+  pointer-events: none;
+}
+
+.receipt {
+  background: #fbf5e6;
+  color: #24180e;
+  padding: 24px 20px;
+  border-radius: 10px;
+  min-height: 400px;
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.08), 0 10px 30px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.receipt h3 {
+  text-align: center;
+  margin: 0 0 4px;
+  font-family: Georgia, serif;
+  letter-spacing: 2px;
+  font-size: 18px;
+  color: #1a100a;
+}
+
+.center { text-align: center; font-size: 11px; color: #5c4733; }
+.line { border-top: 1px dashed #b5a07c; margin: 12px 0; }
+
+.receipt-items {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 260px;
+  padding-right: 4px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin: 6px 0;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.02);
+  transition: background 0.15s, color 0.15s;
+}
+
+.item:hover {
+  background: rgba(158, 42, 43, 0.1);
+  color: #9e2a2b;
+}
+
+.item .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.item .amount { white-space: nowrap; font-weight: bold; }
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: Georgia, serif;
+  color: #1a100a;
+  padding-top: 4px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.action-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-family: inherit;
+  transition: transform 0.1s, filter 0.2s;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.primary { background: var(--accent-primary); }
+.danger { background: var(--accent-danger); }
+
+.manual {
+  display: grid;
+  grid-template-columns: 1fr 90px 70px auto;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+input {
+  background: #120c08;
+  color: var(--text-main);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 11px 12px;
+  font: 14px "Segoe UI", sans-serif;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+  border-color: var(--border-gold);
+  box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.25);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.manual button {
+  background: var(--accent-primary);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 18px;
+  font-size: 14px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.manual button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.manual button:active {
+  transform: translateY(0);
+}
+
+@media(max-width: 860px) {
+  .app { grid-template-columns: 1fr; }
+  .header { grid-column: auto; }
+  .manual { grid-template-columns: 1fr 1fr; }
+  .manual button { grid-column: 1 / -1; padding: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header panel">
+    <div class="title">Família Cortez</div>
+    <div class="sub">CAIXA DO SALOON • REGISTO DE CONSUMO</div>
+  </div>
+
+  <section class="panel">
+    <h2>Produtos</h2>
+
+    <div class="category">Comidas</div>
+    <div class="products" id="foods"></div>
+
+    <div class="category">Bebidas</div>
+    <div class="products" id="drinks"></div>
+
+    <div class="category">Raspadinhas</div>
+    <div class="products" id="scratch"></div>
+
+    <div class="category">Valor Manual / Personalizado</div>
+    <div class="manual">
+      <input id="manualName" placeholder="Nome do artigo">
+      <input id="manualPrice" type="number" step="0.01" min="0" placeholder="Preço ($)">
+      <input id="manualQty" type="number" min="1" value="1" placeholder="Qtd">
+      <button onclick="addManual()">Adicionar</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Talão / Fatura</h2>
+    <div class="receipt" id="receipt"></div>
+    <div class="actions">
+      <button class="action-btn primary" onclick="copyReceipt()">COPIAR TALÃO</button>
+      <button class="action-btn danger" onclick="clearCart()">LIMPAR</button>
+    </div>
+  </section>
+</div>
+
+<script>
+const products = {
+  foods: [
+    ["Bacalhau com Broa", 3.50],
+    ["Bife Tomahawk", 4.00],
+    ["Baguete Salmão Fumado", 4.00],
+    ["Hamburguer", 3.00],
+    ["Sapateira Recheada", 5.00],
+    ["Alheira à Brás", 3.00],
+    ["Coelho à Caçador", 3.00]
+  ],
+  drinks: [
+    ["Cerveja Lager", 2.00],
+    ["Cerveja Lambic", 2.00],
+    ["Sidra Celta", 1.50],
+    ["Café", 3.00],
+    ["Vinho Tinto", 5.00],
+    ["Vodka", 7.00],
+    ["Hidromel", 7.00],
+    ["Ponchas", 10.00],
+    ["Gin", 10.00],
+    ["Mojito", 8.00],
+    ["Whiskey", 8.00],
+    ["Tequila", 8.00]
+  ],
+  scratch: [
+    ["Raspadinha de Bronze", 5.00],
+    ["Raspadinha de Prata", 10.00],
+    ["Raspadinha de Ouro", 15.00]
+  ]
+};
+
+let cart = [];
+
+function playBeep() {
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(580, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08);
+    
+    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.08);
+  } catch (e) {}
+}
+
+function money(v) {
+  return v.toFixed(2).replace(".", ",") + "$";
+}
+
+function makeButtons(list, id) {
+  const container = document.getElementById(id);
+  container.innerHTML = list.map((p) => `
+    <button class="product-btn" type="button" onclick="addItem('${p[0]}', ${p[1]})">
+      <span class="product-name">${p[0]}</span>
+      <span class="price">${money(p[1])}</span>
+    </button>
+  `).join("");
+}
+
+makeButtons(products.foods, "foods");
+makeButtons(products.drinks, "drinks");
+makeButtons(products.scratch, "scratch");
+
+function addItem(name, price, qty = 1) {
+  if (qty <= 0) return;
+  const existing = cart.find(x => x.name === name && x.price === price);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ name, price, qty });
+  }
+  playBeep();
+  render();
+}
+
+function addManual() {
+  const nameInput = document.getElementById("manualName");
+  const priceInput = document.getElementById("manualPrice");
+  const qtyInput = document.getElementById("manualQty");
+
+  const name = nameInput.value.trim();
+  const price = parseFloat(priceInput.value);
+  const qty = parseInt(qtyInput.value) || 1;
+
+  if (!name || !Number.isFinite(price) || price < 0 || qty <= 0) return;
+
+  addItem(name, price, qty);
+
+  nameInput.value = "";
+  priceInput.value = "";
+  qtyInput.value = "1";
+}
+
+function removeItem(i) {
+  if (cart[i].qty > 1) {
+    cart[i].qty--;
+  } else {
+    cart.splice(i, 1);
+  }
+  render();
+}
+
+function render() {
+  const receipt = document.getElementById("receipt");
+  const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  
+  let rows = cart.map((x, i) => `
+    <div class="item" title="Clique para remover uma unidade" onclick="removeItem(${i})">
+      <span class="name">${x.qty}x ${x.name}</span>
+      <span class="amount">${money(x.price * x.qty)}</span>
+    </div>
+  `).join("");
+
+  receipt.innerHTML = `
+    <h3>FAMÍLIA CORTEZ</h3>
+    <div class="center">SALOON • TALÃO DE CONSUMO</div>
+    <div class="line"></div>
+    <div class="receipt-items">
+      ${rows || '<div class="center" style="margin-top: 100px; color: #8c7554;">Nenhum artigo adicionado</div>'}
+    </div>
+    <div class="line"></div>
+    <div class="total"><span>TOTAL</span><span>${money(total)}</span></div>
+    <div class="line"></div>
+    <div class="center">Obrigado pela preferência!</div>
+  `;
+}
+
+function receiptText() {
+  const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  let text = "================================\n";
+  text += "          FAMÍLIA CORTEZ\n";
+  text += "        SALOON • TALÃO\n";
+  text += "================================\n";
+  cart.forEach(x => {
+    text += `${x.qty}x ${x.name} - ${money(x.price * x.qty)}\n`;
+  });
+  text += "--------------------------------\n";
+  text += `TOTAL: ${money(total)}\n`;
+  text += "================================\n";
+  text += "   Obrigado pela preferência!\n";
+  text += "================================\n";
+  return text;
+}
+
+async function copyReceipt() {
+  if (!cart.length) return;
+  try {
+    await navigator.clipboard.writeText(receiptText());
+    alert("Talão copiado com sucesso!");
+  } catch (e) {
+    const ta = document.createElement("textarea");
+    ta.value = receiptText();
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+    alert("Talão copiado com sucesso!");
+  }
+}
+
+function clearCart() {
+  cart = [];
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
