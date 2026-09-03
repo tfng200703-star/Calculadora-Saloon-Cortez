@@ -325,6 +325,9 @@ input::-webkit-inner-spin-button {
     <div class="category">Comidas</div>
     <div class="products" id="foods"></div>
 
+    <div class="category">Comidas Índio</div>
+    <div class="products" id="indianFoods"></div>
+
     <div class="category">Bebidas</div>
     <div class="products" id="drinks"></div>
 
@@ -355,11 +358,17 @@ const products = {
   foods: [
     ["Bacalhau com Broa", 3.50],
     ["Bife Tomahawk", 4.00],
-    ["Baguete Salmão Fumado", 4.00],
+    ["Baguete Salmão Fumado", 3.00],
     ["Hamburguer", 3.00],
     ["Sapateira Recheada", 5.00],
     ["Alheira à Brás", 3.00],
     ["Coelho à Caçador", 3.00]
+  ],
+  indianFoods: [
+    ["Caldo Verde", 4.00],
+    ["Cha de Mel", 2.50],
+    ["Ensopado de Javali", 3.50],
+    ["Alheira de Caça", 3.00]
   ],
   drinks: [
     ["Cerveja Lager", 2.00],
@@ -420,6 +429,7 @@ function makeButtons(list, id) {
 }
 
 makeButtons(products.foods, "foods");
+makeButtons(products.indianFoods, "indianFoods");
 makeButtons(products.drinks, "drinks");
 makeButtons(products.scratch, "scratch");
 
