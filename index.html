@@ -6,18 +6,18 @@
 <title>Família Cortez — Caixa</title>
 <style>
 :root {
-  --bg-dark: #0a0604;
-  --panel-bg: linear-gradient(135deg, #18100a 0%, #100a06 100%);
-  --border-gold: #d4a373;
-  --border-dark: #332014;
-  --text-main: #fcf1e2;
-  --text-muted: #bc986c;
-  --accent-primary: #b05721;
-  --accent-hover: #c46426;
-  --accent-danger: #9e2a2b;
-  --accent-danger-hover: #b63435;
-  --btn-bg: #22140c;
-  --btn-hover: #321e12;
+  --bg-dark: #070403;
+  --panel-bg: linear-gradient(135deg, #140b06 0%, #0a0503 100%);
+  --border-gold: #c28e4e;
+  --border-dark: #2a180f;
+  --text-main: #f5e6cc;
+  --text-muted: #a68457;
+  --accent-primary: #9e5320;
+  --accent-hover: #b86228;
+  --accent-danger: #8a2828;
+  --accent-discount: #734520;
+  --btn-bg: #1d1009;
+  --btn-hover: #2e1a10;
 }
 
 * { box-sizing: border-box; }
@@ -25,7 +25,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #1a100a 0%, var(--bg-dark) 100%);
+  background: radial-gradient(circle at top, #150a05 0%, var(--bg-dark) 100%);
   color: var(--text-main);
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   display: flex;
@@ -43,38 +43,54 @@ body {
 
 .panel {
   background: var(--panel-bg);
-  border: 1px solid rgba(212, 163, 115, 0.3);
+  border: 1px solid rgba(194, 142, 78, 0.25);
   border-radius: 16px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   padding: 24px;
 }
 
 .header {
   text-align: center;
   grid-column: 1 / -1;
-  background: linear-gradient(180deg, #1f130b 0%, #100905 100%);
-  border-bottom: 2px solid var(--border-gold);
-  padding: 24px;
-  border-radius: 16px;
+  background: #2a1b12;
+  border: 3px solid #815326;
+  border-radius: 12px;
+  box-shadow: 0 14px 45px #0009, inset 0 0 0 2px #412817;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.saloon-corner-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+  mask-image: linear-gradient(to left, rgba(0,0,0,0.9), transparent);
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.9), transparent);
+  pointer-events: none;
 }
 
 .title {
-  font-family: Georgia, serif;
   text-transform: uppercase;
-  letter-spacing: 8px;
-  font-size: 34px;
-  color: #fae1cc;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  font-weight: 700;
+  letter-spacing: 5px;
+  font-size: 30px;
+  font-family: Georgia, serif;
 }
 
 .sub {
-  color: var(--text-muted);
+  color: #b99867;
   font-size: 12px;
-  letter-spacing: 4px;
-  margin-top: 8px;
-  font-weight: 600;
-  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 5px;
+  font-family: Georgia, serif;
 }
 
 h2 {
@@ -82,7 +98,7 @@ h2 {
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #e5b982;
+  color: #dfbe87;
   border-bottom: 1px solid var(--border-dark);
   padding-bottom: 10px;
   margin: 0 0 16px;
@@ -104,7 +120,7 @@ h2 {
   content: "";
   flex: 1;
   height: 1px;
-  background: rgba(188, 152, 108, 0.2);
+  background: rgba(166, 132, 87, 0.2);
 }
 
 .products {
@@ -120,7 +136,7 @@ button.product-btn {
   color: var(--text-main);
   padding: 12px 14px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -134,7 +150,7 @@ button.product-btn:hover {
   background: var(--btn-hover);
   border-color: var(--border-gold);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(176, 87, 33, 0.25);
+  box-shadow: 0 6px 16px rgba(158, 83, 32, 0.3);
 }
 
 button.product-btn:active {
@@ -149,26 +165,32 @@ button.product-btn:active {
 
 .price {
   white-space: nowrap;
-  color: #f7d59c;
+  color: #f3d08a;
   font-weight: 700;
   font-size: 13px;
   background: rgba(0, 0, 0, 0.4);
   padding: 4px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(212, 163, 115, 0.15);
+  border: 1px solid rgba(194, 142, 78, 0.15);
   pointer-events: none;
 }
 
 .receipt {
-  background: #fbf5e6;
-  color: #24180e;
-  padding: 24px 20px;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(138, 97, 56, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(105, 68, 35, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #e6ce9e 0%, #d4bc85 45%, #c2a86f 100%);
+  color: #21130a;
+  padding: 26px 20px;
   border-radius: 10px;
-  min-height: 400px;
+  min-height: 420px;
   font-family: "Courier New", Courier, monospace;
-  box-shadow: inset 0 0 15px rgba(0,0,0,0.08), 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 30px rgba(92, 53, 20, 0.35), 0 10px 30px rgba(0,0,0,0.7);
+  border: 2px dashed #997847;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
 .receipt h3 {
@@ -176,12 +198,12 @@ button.product-btn:active {
   margin: 0 0 4px;
   font-family: Georgia, serif;
   letter-spacing: 2px;
-  font-size: 18px;
-  color: #1a100a;
+  font-size: 19px;
+  color: #1f1007;
 }
 
-.center { text-align: center; font-size: 11px; color: #5c4733; }
-.line { border-top: 1px dashed #b5a07c; margin: 12px 0; }
+.center { text-align: center; font-size: 11px; color: #523821; font-weight: bold; }
+.line { border-top: 1px dashed #7a5c39; margin: 12px 0; }
 
 .receipt-items {
   flex: 1;
@@ -199,16 +221,16 @@ button.product-btn:active {
   cursor: pointer;
   padding: 6px 8px;
   border-radius: 6px;
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(92, 53, 20, 0.08);
   transition: background 0.15s, color 0.15s;
 }
 
 .item:hover {
-  background: rgba(158, 42, 43, 0.1);
-  color: #9e2a2b;
+  background: rgba(138, 40, 40, 0.15);
+  color: #8a2828;
 }
 
-.item .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.item .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; }
 .item .amount { white-space: nowrap; font-weight: bold; }
 
 .total {
@@ -217,29 +239,40 @@ button.product-btn:active {
   font-weight: bold;
   font-size: 18px;
   font-family: Georgia, serif;
-  color: #1a100a;
+  color: #140a04;
   padding-top: 4px;
+}
+
+.discount-line {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 13px;
+  font-family: Georgia, serif;
+  color: #8a2828;
+  margin-top: 4px;
 }
 
 .actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
   margin-top: 16px;
 }
 
 .action-btn {
   border: none;
   border-radius: 10px;
-  padding: 14px;
+  padding: 12px 8px;
   color: white;
   font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 1px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   font-family: inherit;
   transition: transform 0.1s, filter 0.2s;
+  text-align: center;
 }
 
 .action-btn:hover {
@@ -252,6 +285,8 @@ button.product-btn:active {
 }
 
 .primary { background: var(--accent-primary); }
+.discount-btn { background: #6b4423; border: 1px solid #c28e4e; }
+.discount-btn.active { background: #3d220d; border-color: #f3d08a; box-shadow: inset 0 0 8px rgba(0,0,0,0.6); }
 .danger { background: var(--accent-danger); }
 
 .manual {
@@ -262,7 +297,7 @@ button.product-btn:active {
 }
 
 input {
-  background: #120c08;
+  background: #0d0603;
   color: var(--text-main);
   border: 1px solid var(--border-dark);
   border-radius: 8px;
@@ -274,7 +309,7 @@ input {
 
 input:focus {
   border-color: var(--border-gold);
-  box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.25);
+  box-shadow: 0 0 0 2px rgba(194, 142, 78, 0.25);
 }
 
 input::-webkit-outer-spin-button,
@@ -309,12 +344,14 @@ input::-webkit-inner-spin-button {
   .header { grid-column: auto; }
   .manual { grid-template-columns: 1fr 1fr; }
   .manual button { grid-column: 1 / -1; padding: 12px; }
+  .actions { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 <div class="app">
   <div class="header panel">
+    <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=400&auto=format&fit=crop" class="saloon-corner-img" alt="Saloon">
     <div class="title">Família Cortez</div>
     <div class="sub">CAIXA DO SALOON • REGISTO DE CONSUMO</div>
   </div>
@@ -348,6 +385,7 @@ input::-webkit-inner-spin-button {
     <div class="receipt" id="receipt"></div>
     <div class="actions">
       <button class="action-btn primary" onclick="copyReceipt()">COPIAR TALÃO</button>
+      <button class="action-btn discount-btn" id="discountBtn" onclick="toggleDiscount()">DESCONTO 10%</button>
       <button class="action-btn danger" onclick="clearCart()">LIMPAR</button>
     </div>
   </section>
@@ -392,6 +430,7 @@ const products = {
 };
 
 let cart = [];
+let discountActive = false;
 
 function playBeep() {
   try {
@@ -400,17 +439,17 @@ function playBeep() {
     const gain = audioCtx.createGain();
     
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(580, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08);
+    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.04);
     
-    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
     
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     
     osc.start();
-    osc.stop(audioCtx.currentTime + 0.08);
+    osc.stop(audioCtx.currentTime + 0.04);
   } catch (e) {}
 }
 
@@ -472,9 +511,22 @@ function removeItem(i) {
   render();
 }
 
+function toggleDiscount() {
+  discountActive = !discountActive;
+  const btn = document.getElementById("discountBtn");
+  if (discountActive) {
+    btn.classList.add("active");
+  } else {
+    btn.classList.remove("active");
+  }
+  render();
+}
+
 function render() {
   const receipt = document.getElementById("receipt");
-  const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  const subtotal = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  const discountAmount = discountActive ? subtotal * 0.10 : 0;
+  const total = subtotal - discountAmount;
   
   let rows = cart.map((x, i) => `
     <div class="item" title="Clique para remover uma unidade" onclick="removeItem(${i})">
@@ -483,14 +535,19 @@ function render() {
     </div>
   `).join("");
 
+  let discountHtml = discountActive ? `
+    <div class="discount-line"><span>DESCONTO 10%</span><span>-${money(discountAmount)}</span></div>
+  ` : '';
+
   receipt.innerHTML = `
     <h3>FAMÍLIA CORTEZ</h3>
     <div class="center">SALOON • TALÃO DE CONSUMO</div>
     <div class="line"></div>
     <div class="receipt-items">
-      ${rows || '<div class="center" style="margin-top: 100px; color: #8c7554;">Nenhum artigo adicionado</div>'}
+      ${rows || '<div class="center" style="margin-top: 100px; color: #61462a;">Nenhum artigo adicionado</div>'}
     </div>
     <div class="line"></div>
+    ${discountHtml}
     <div class="total"><span>TOTAL</span><span>${money(total)}</span></div>
     <div class="line"></div>
     <div class="center">Obrigado pela preferência!</div>
@@ -498,7 +555,10 @@ function render() {
 }
 
 function receiptText() {
-  const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  const subtotal = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  const discountAmount = discountActive ? subtotal * 0.10 : 0;
+  const total = subtotal - discountAmount;
+
   let text = "================================\n";
   text += "          FAMÍLIA CORTEZ\n";
   text += "        SALOON • TALÃO\n";
@@ -507,6 +567,9 @@ function receiptText() {
     text += `${x.qty}x ${x.name} - ${money(x.price * x.qty)}\n`;
   });
   text += "--------------------------------\n";
+  if (discountActive) {
+    text += `DESCONTO 10%: -${money(discountAmount)}\n`;
+  }
   text += `TOTAL: ${money(total)}\n`;
   text += "================================\n";
   text += "   Obrigado pela preferência!\n";
@@ -532,6 +595,8 @@ async function copyReceipt() {
 
 function clearCart() {
   cart = [];
+  discountActive = false;
+  document.getElementById("discountBtn").classList.remove("active");
   render();
 }
 
