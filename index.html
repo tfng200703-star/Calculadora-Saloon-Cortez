@@ -15,7 +15,6 @@
   --accent-primary: #9e5320;
   --accent-hover: #b86228;
   --accent-danger: #8a2828;
-  --accent-discount: #734520;
   --btn-bg: #1d1009;
   --btn-hover: #2e1a10;
 }
@@ -208,7 +207,7 @@ button.product-btn:active {
 .receipt-items {
   flex: 1;
   overflow-y: auto;
-  max-height: 260px;
+  max-height: 220px;
   padding-right: 4px;
 }
 
@@ -386,6 +385,7 @@ input::-webkit-inner-spin-button {
     <div class="actions">
       <button class="action-btn primary" onclick="copyReceipt()">COPIAR TALÃO</button>
       <button class="action-btn discount-btn" id="discountBtn" onclick="toggleDiscount()">DESCONTO 10%</button>
+      <button class="action-btn discount-btn" id="discount3Btn" onclick="toggleDiscount3()">DESC. 3%</button>
       <button class="action-btn danger" onclick="clearCart()">LIMPAR</button>
     </div>
   </section>
@@ -431,6 +431,7 @@ const products = {
 
 let cart = [];
 let discountActive = false;
+let discount3Active = false;
 
 function playBeep() {
   try {
@@ -522,11 +523,23 @@ function toggleDiscount() {
   render();
 }
 
+function toggleDiscount3() {
+  discount3Active = !discount3Active;
+  const btn = document.getElementById("discount3Btn");
+  if (discount3Active) {
+    btn.classList.add("active");
+  } else {
+    btn.classList.remove("active");
+  }
+  render();
+}
+
 function render() {
   const receipt = document.getElementById("receipt");
   const subtotal = cart.reduce((s, x) => s + x.price * x.qty, 0);
-  const discountAmount = discountActive ? subtotal * 0.10 : 0;
-  const total = subtotal - discountAmount;
+  const discount10Amount = discountActive ? subtotal * 0.10 : 0;
+  const discount3Amount = discount3Active ? subtotal * 0.03 : 0;
+  const total = subtotal - discount10Amount - discount3Amount;
   
   let rows = cart.map((x, i) => `
     <div class="item" title="Clique para remover uma unidade" onclick="removeItem(${i})">
@@ -536,7 +549,11 @@ function render() {
   `).join("");
 
   let discountHtml = discountActive ? `
-    <div class="discount-line"><span>DESCONTO 10%</span><span>-${money(discountAmount)}</span></div>
+    <div class="discount-line"><span>DESCONTO 10%</span><span>-${money(discount10Amount)}</span></div>
+  ` : '';
+
+  let discount3Html = discount3Active ? `
+    <div class="discount-line"><span>DESCONTO 3%</span><span>-${money(discount3Amount)}</span></div>
   ` : '';
 
   receipt.innerHTML = `
@@ -548,7 +565,8 @@ function render() {
     </div>
     <div class="line"></div>
     ${discountHtml}
-    <div class="total"><span>TOTAL</span><span>${money(total)}</span></div>
+    ${discount3Html}
+    <div class="total"><span>TOTAL</span><span>${money(total < 0 ? 0 : total)}</span></div>
     <div class="line"></div>
     <div class="center">Obrigado pela preferência!</div>
   `;
@@ -556,8 +574,9 @@ function render() {
 
 function receiptText() {
   const subtotal = cart.reduce((s, x) => s + x.price * x.qty, 0);
-  const discountAmount = discountActive ? subtotal * 0.10 : 0;
-  const total = subtotal - discountAmount;
+  const discount10Amount = discountActive ? subtotal * 0.10 : 0;
+  const discount3Amount = discount3Active ? subtotal * 0.03 : 0;
+  const total = subtotal - discount10Amount - discount3Amount;
 
   let text = "================================\n";
   text += "          FAMÍLIA CORTEZ\n";
@@ -568,9 +587,12 @@ function receiptText() {
   });
   text += "--------------------------------\n";
   if (discountActive) {
-    text += `DESCONTO 10%: -${money(discountAmount)}\n`;
+    text += `DESCONTO 10%: -${money(discount10Amount)}\n`;
   }
-  text += `TOTAL: ${money(total)}\n`;
+  if (discount3Active) {
+    text += `DESCONTO 3%: -${money(discount3Amount)}\n`;
+  }
+  text += `TOTAL: ${money(total < 0 ? 0 : total)}\n`;
   text += "================================\n";
   text += "   Obrigado pela preferência!\n";
   text += "================================\n";
@@ -596,7 +618,9 @@ async function copyReceipt() {
 function clearCart() {
   cart = [];
   discountActive = false;
+  discount3Active = false;
   document.getElementById("discountBtn").classList.remove("active");
+  document.getElementById("discount3Btn").classList.remove("active");
   render();
 }
 
