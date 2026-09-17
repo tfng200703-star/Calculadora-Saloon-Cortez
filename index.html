@@ -26,7 +26,6 @@
 body {
   margin: 0;
   min-height: 100vh;
-  /* FUNDO DA ÉPOCA: Textura rústica escura de madeira/couro envelhecido sem fotos modernas */
   background-color: var(--bg-dark);
   background-image: 
     radial-gradient(circle at 50% 30%, rgba(30, 20, 12, 0.8) 0%, rgba(5, 4, 3, 0.95) 100%),
@@ -39,13 +38,11 @@ body {
   padding: 24px 16px;
 }
 
-/* APLICAR A FONTE TIPO RED DEAD / WESTERN AOS TÍTULOS E CABEÇALHOS */
 h1, h2, .sidebar-brand, .receipt-top-title, .modal-title, .ranch-title-group h1 {
   font-family: 'Rye', serif !important;
   letter-spacing: 1px;
 }
 
-/* LAYOUT GERAL */
 .ranch-layout {
   width: min(1380px, 100%);
   display: grid;
@@ -54,7 +51,6 @@ h1, h2, .sidebar-brand, .receipt-top-title, .modal-title, .ranch-title-group h1 
   align-items: start;
 }
 
-/* SIDEBAR */
 .ranch-sidebar {
   background: var(--surface-main);
   border: 1px solid var(--border-color);
@@ -108,7 +104,6 @@ h1, h2, .sidebar-brand, .receipt-top-title, .modal-title, .ranch-title-group h1 
   font-weight: 600;
 }
 
-/* APP CONTAINER */
 .ranch-app {
   background: var(--surface-main);
   border: 1px solid var(--border-color);
@@ -131,23 +126,13 @@ h1, h2, .sidebar-brand, .receipt-top-title, .modal-title, .ranch-title-group h1 
   gap: 28px;
 }
 
-.menu-placeholder {
+.menu-tab-pane {
   grid-column: 1 / -1;
   min-height: 450px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }
 
-.menu-placeholder h2 {
-  color: var(--gold-primary);
-  font-size: 22px;
-  margin-bottom: 8px;
-}
-
-/* HEADER DO PAINEL */
 .ranch-header {
   grid-column: 1 / -1;
   background: var(--surface-card);
@@ -174,7 +159,6 @@ h1, h2, .sidebar-brand, .receipt-top-title, .modal-title, .ranch-title-group h1 
   font-weight: 600;
 }
 
-/* TÍTULOS E SECÇÕES */
 h2 {
   font-size: 15px;
   text-transform: uppercase;
@@ -211,7 +195,6 @@ h2 {
   gap: 10px;
 }
 
-/* CARTÕES DE PRODUTOS */
 .ranch-card {
   background: var(--surface-card);
   border: 1px solid var(--border-color);
@@ -251,7 +234,92 @@ h2 {
   pointer-events: none;
 }
 
-/* TALÃO / RECIBO */
+/* CAIXAS DE MENUS */
+.menus-grid-visual {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.menu-banner-card {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px;
+  background-color: #120f0c;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-banner-card img {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-banner-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: 
+    linear-gradient(90deg, #120f0c 0%, rgba(18,15,12,0) 18%, rgba(18,15,12,0) 82%, #120f0c 100%),
+    linear-gradient(180deg, rgba(18,15,12,0.3) 0%, rgba(18,15,12,0) 50%, #120f0c 95%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.menu-banner-card:hover img {
+  transform: scale(1.05);
+}
+
+.menu-banner-card:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.3);
+}
+
+.menu-banner-info {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.menu-banner-title {
+  font-family: 'Rye', serif;
+  font-size: 13px;
+  color: var(--gold-light);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.95);
+  margin: 0;
+}
+
+.menu-banner-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #050403;
+  background: var(--gold-primary);
+  padding: 5px 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  transition: transform 0.2s;
+}
+
+.menu-banner-card:hover .menu-banner-price {
+  transform: scale(1.05);
+}
+
 .ranch-receipt {
   background: #0d0b0a;
   border: 1px solid var(--border-color);
@@ -312,6 +380,15 @@ h2 {
   color: #ff9b8b;
 }
 
+.receipt-row.is-menu {
+  background: rgba(212, 175, 55, 0.06);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+.receipt-row.is-menu span:first-child {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
 .receipt-total {
   display: flex;
   justify-content: space-between;
@@ -330,7 +407,6 @@ h2 {
   margin-top: 4px;
 }
 
-/* BOTÕES DE AÇÃO */
 .ranch-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -396,7 +472,6 @@ h2 {
   font-weight: 700;
 }
 
-/* INPUT MANUAL */
 .manual-grid {
   display: grid;
   grid-template-columns: 1fr 90px 70px auto;
@@ -436,7 +511,6 @@ h2 {
   border-color: var(--gold-primary);
 }
 
-/* MODAL DE QUANTIDADE */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -482,6 +556,7 @@ h2 {
 @media(max-width: 1000px) {
   .ranch-layout { grid-template-columns: 1fr; }
   .ranch-app, .tab-content.active { grid-template-columns: 1fr; }
+  .menus-grid-visual { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -504,10 +579,10 @@ h2 {
   
   <!-- SIDEBAR -->
   <aside class="ranch-sidebar">
-    <div class="sidebar-brand">State of Monroe</div>
+    <div class="sidebar-brand">Cortezia</div>
     <ul class="sidebar-menu">
       <li class="sidebar-item active" onclick="switchTab('pos', this)">Caixa Saloon</li>
-      <li class="sidebar-item" onclick="switchTab('menu1', this)">Menus Especiais</li>
+      <li class="sidebar-item" onclick="switchTab('menu1', this)">Menus Pequeno-Almoço</li>
       <li class="sidebar-item" onclick="switchTab('menu2', this)">Carta de Bebidas</li>
     </ul>
   </aside>
@@ -515,7 +590,7 @@ h2 {
   <!-- APP PRINCIPAL -->
   <div class="ranch-app">
     
-    <!-- ABA 1: POS / CAIXA -->
+    <!-- ABA 1: POS / CAIXA GERAL -->
     <div id="tab-pos" class="tab-content active">
       <div class="ranch-header">
         <div class="ranch-title-group">
@@ -553,26 +628,42 @@ h2 {
         <div class="ranch-receipt" id="receipt"></div>
         <div class="ranch-actions">
           <button class="ranch-btn primary" onclick="copyReceipt()">COPIAR TALÃO PARA O JOGO</button>
-          <button class="ranch-btn" id="discountBtn" onclick="toggleDiscount()">DESC. 10%</button>
-          <button class="ranch-btn" id="discount3Btn" onclick="toggleDiscount3()">DESC. 3%</button>
+          <button class="ranch-btn" id="discountBtn" onclick="toggleDiscount()">CORTEZIA 10%</button>
+          <button class="ranch-btn" id="discount3Btn" onclick="toggleDiscount3()">CORTEZIA 3%</button>
           <button class="ranch-btn danger" onclick="clearCart()">ANULAR TUDO</button>
         </div>
       </section>
     </div>
 
-    <!-- ABA 2: MENUS -->
+    <!-- ABA 2: MENUS PEQUENO-ALMOÇO -->
     <div id="tab-menu1" class="tab-content">
-      <div class="menu-placeholder">
-        <h2>Menus Especiais</h2>
-        <p>Espaço reservado para gerir os combos e pacotes de refeições.</p>
+      <div class="menu-tab-pane">
+        <div class="ranch-header">
+          <div class="ranch-title-group">
+            <h1>Menus Pequeno-Almoço</h1>
+            <p>✦ Combos Matinais ✦</p>
+          </div>
+        </div>
+        <section style="margin-top: 20px;">
+          <h2>Combos Disponíveis</h2>
+          <div class="menus-grid-visual" id="breakfastMenus"></div>
+        </section>
       </div>
     </div>
 
-    <!-- ABA 3: BEBIDAS -->
+    <!-- ABA 3: CARTA DE BEBIDAS -->
     <div id="tab-menu2" class="tab-content">
-      <div class="menu-placeholder">
-        <h2>Carta de Bebidas</h2>
-        <p>Espaço reservado para a lista de destilados e bebidas premium.</p>
+      <div class="menu-tab-pane">
+        <div class="ranch-header">
+          <div class="ranch-title-group">
+            <h1>Carta de Bebidas</h1>
+            <p>✦ Garrafeira & Destilados ✦</p>
+          </div>
+        </div>
+        <section style="margin-top: 20px;">
+          <h2>Bebidas Premium</h2>
+          <p style="color: var(--text-muted); font-size: 13px;">Espaço reservado para gerir a lista detalhada de bebidas.</p>
+        </section>
       </div>
     </div>
 
@@ -580,7 +671,13 @@ h2 {
 </div>
 
 <script>
+const breakfastMenuNames = ["Café + Pastel de Nata", "Café + Pão de Ló"];
+
 const products = {
+  breakfastMenus: [
+    ["Café + Pastel de Nata", 5.50, "https://i.imgur.com/YqBlsyF.png"], 
+    ["Café + Pão de Ló", 5.00, "https://i.imgur.com/myUoe9L.png"]
+  ],
   foods: [
     ["Bacalhau com Broa", 3.50],
     ["Bife Tomahawk", 4.00],
@@ -600,7 +697,7 @@ const products = {
     ["Cerveja Lager", 2.00],
     ["Cerveja Lambic", 2.00],
     ["Sidra Celta", 1.50],
-    ["Café", 3.00],
+    ["Café", 3.50],
     ["Vinho Tinto", 5.00],
     ["Vodka", 7.00],
     ["Hidromel", 7.00],
@@ -621,6 +718,10 @@ let cart = [];
 let discountActive = false;
 let discount3Active = false;
 let currentProduct = null;
+
+function isMenu(name) {
+  return breakfastMenuNames.includes(name);
+}
 
 function switchTab(tabId, element) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -666,6 +767,21 @@ function makeCards(list, id) {
   `).join("");
 }
 
+function makeBannerCards(list, id) {
+  const container = document.getElementById(id);
+  if(!container) return;
+  container.innerHTML = list.map((p) => `
+    <div class="menu-banner-card" onclick="openModal('${p[0]}', ${p[1]})">
+      <img src="${p[2]}" alt="${p[0]}">
+      <div class="menu-banner-info">
+        <h3 class="menu-banner-title">${p[0]}</h3>
+        <span class="menu-banner-price">${money(p[1])}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+makeBannerCards(products.breakfastMenus, "breakfastMenus");
 makeCards(products.foods, "foods");
 makeCards(products.indianFoods, "indianFoods");
 makeCards(products.drinks, "drinks");
@@ -772,19 +888,23 @@ function render() {
   const discount3Amount = discount3Active ? subtotal * 0.03 : 0;
   const total = subtotal - discount10Amount - discount3Amount;
   
-  let rows = cart.map((x, i) => `
-    <div class="receipt-row" title="Clique para remover uma unidade" onclick="removeItem(${i})">
-      <span>${x.qty}x ${x.name}</span>
-      <span>${money(x.price * x.qty)}</span>
-    </div>
-  `).join("");
+  let rows = cart.map((x, i) => {
+    const menuTag = isMenu(x.name) ? `<span style="color: var(--gold-primary); font-weight: 700;">[MENU] </span>` : '';
+    const menuRowClass = isMenu(x.name) ? `is-menu` : '';
+    return `
+      <div class="receipt-row ${menuRowClass}" title="Clique para remover uma unidade" onclick="removeItem(${i})">
+        <span>${x.qty}x ${menuTag}${x.name}</span>
+        <span>${money(x.price * x.qty)}</span>
+      </div>
+    `;
+  }).join("");
 
   let discountHtml = discountActive ? `
-    <div class="receipt-discount"><span>DESCONTO 10%</span><span>-${money(discount10Amount)}</span></div>
+    <div class="receipt-discount"><span>CORTEZIA DA CASA (10%)</span><span>-${money(discount10Amount)}</span></div>
   ` : '';
 
   let discount3Html = discount3Active ? `
-    <div class="receipt-discount"><span>DESCONTO 3%</span><span>-${money(discount3Amount)}</span></div>
+    <div class="receipt-discount"><span>CORTEZIA DA CASA (3%)</span><span>-${money(discount3Amount)}</span></div>
   ` : '';
 
   receipt.innerHTML = `
@@ -799,7 +919,7 @@ function render() {
     ${discount3Html}
     <div class="receipt-total"><span>TOTAL A PAGAR</span><span>${money(total < 0 ? 0 : total)}</span></div>
     <div class="receipt-line"></div>
-    <div style="text-align: center; font-size: 10px; color: var(--text-muted);">State of Monroe • Obrigado pela preferência</div>
+    <div style="text-align: center; font-size: 10px; color: var(--text-muted);">Cortezia • Obrigado pela preferência</div>
   `;
 }
 
@@ -814,14 +934,15 @@ function receiptText() {
   text += "        SALOON • TALÃO\n";
   text += "================================\n";
   cart.forEach(x => {
-    text += `${x.qty}x ${x.name} - ${money(x.price * x.qty)}\n`;
+    const prefix = isMenu(x.name) ? "[MENU] " : "";
+    text += `${x.qty}x ${prefix}${x.name} - ${money(x.price * x.qty)}\n`;
   });
   text += "--------------------------------\n";
   if (discountActive) {
-    text += `DESCONTO 10%: -${money(discount10Amount)}\n`;
+    text += `CORTEZIA DA CASA (10%): -${money(discount10Amount)}\n`;
   }
   if (discount3Active) {
-    text += `DESCONTO 3%: -${money(discount3Amount)}\n`;
+    text += `CORTEZIA DA CASA (3%): -${money(discount3Amount)}\n`;
   }
   text += `TOTAL: ${money(total < 0 ? 0 : total)}\n`;
   text += "================================\n";
