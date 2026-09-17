@@ -3,20 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Família Cortez — Caixa</title>
+<title>Família Cortez — The Ranch Style</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Rye&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
 :root {
-  --bg-dark: #070403;
-  --panel-bg: linear-gradient(135deg, #140b06 0%, #0a0503 100%);
-  --border-gold: #c28e4e;
-  --border-dark: #2a180f;
-  --text-main: #f5e6cc;
-  --text-muted: #a68457;
-  --accent-primary: #9e5320;
-  --accent-hover: #b86228;
-  --accent-danger: #8a2828;
-  --btn-bg: #1d1009;
-  --btn-hover: #2e1a10;
+  --bg-dark: #050403;
+  --surface-main: #12100e;
+  --surface-card: #181512;
+  --surface-hover: #211c18;
+  --border-color: rgba(212, 175, 55, 0.2);
+  --border-hover: rgba(212, 175, 55, 0.45);
+  --gold-primary: #d4af37;
+  --gold-light: #f3e5ab;
+  --text-main: #f4f1ea;
+  --text-muted: #9e9587;
+  --accent-red: #8b2614;
 }
 
 * { box-sizing: border-box; }
@@ -24,371 +26,557 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #150a05 0%, var(--bg-dark) 100%);
+  /* FUNDO DA ÉPOCA: Textura rústica escura de madeira/couro envelhecido sem fotos modernas */
+  background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 50% 30%, rgba(30, 20, 12, 0.8) 0%, rgba(5, 4, 3, 0.95) 100%),
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 4px);
   color: var(--text-main);
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 24px 16px;
 }
 
-.app {
-  width: min(1120px, 100%);
+/* APLICAR A FONTE TIPO RED DEAD / WESTERN AOS TÍTULOS E CABEÇALHOS */
+h1, h2, .sidebar-brand, .receipt-top-title, .modal-title, .ranch-title-group h1 {
+  font-family: 'Rye', serif !important;
+  letter-spacing: 1px;
+}
+
+/* LAYOUT GERAL */
+.ranch-layout {
+  width: min(1380px, 100%);
   display: grid;
-  grid-template-columns: 1.45fr 0.95fr;
+  grid-template-columns: 240px 1fr;
   gap: 24px;
+  align-items: start;
 }
 
-.panel {
-  background: var(--panel-bg);
-  border: 1px solid rgba(194, 142, 78, 0.25);
-  border-radius: 16px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  padding: 24px;
-}
-
-.header {
-  text-align: center;
-  grid-column: 1 / -1;
-  background: #2a1b12;
-  border: 3px solid #815326;
+/* SIDEBAR */
+.ranch-sidebar {
+  background: var(--surface-main);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  box-shadow: 0 14px 45px #0009, inset 0 0 0 2px #412817;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
+  padding: 24px 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.9);
+}
+
+.sidebar-brand {
+  font-size: 14px;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 6px;
+}
+
+.sidebar-item {
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.sidebar-item:hover {
+  background: var(--surface-hover);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+.sidebar-item.active {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(18, 16, 14, 0.8) 100%);
+  color: var(--gold-light);
+  border-color: var(--border-hover);
+  font-weight: 600;
+}
+
+/* APP CONTAINER */
+.ranch-app {
+  background: var(--surface-main);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95);
+  padding: 32px;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1.45fr 0.95fr;
+  gap: 28px;
+}
+
+.tab-content {
+  display: none;
+  grid-column: 1 / -1;
+}
+
+.tab-content.active {
+  display: grid;
+  grid-template-columns: 1.45fr 0.95fr;
+  gap: 28px;
+}
+
+.menu-placeholder {
+  grid-column: 1 / -1;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-.saloon-corner-img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 140px;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.45;
-  mask-image: linear-gradient(to left, rgba(0,0,0,0.9), transparent);
-  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.9), transparent);
-  pointer-events: none;
+.menu-placeholder h2 {
+  color: var(--gold-primary);
+  font-size: 22px;
+  margin-bottom: 8px;
 }
 
-.title {
+/* HEADER DO PAINEL */
+.ranch-header {
+  grid-column: 1 / -1;
+  background: var(--surface-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 22px 26px;
+  margin-bottom: 4px;
+}
+
+.ranch-title-group h1 {
+  font-size: 26px;
+  color: var(--gold-light);
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.ranch-title-group p {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 5px;
-  font-size: 30px;
-  font-family: Georgia, serif;
+  margin: 6px 0 0 0;
+  font-weight: 600;
 }
 
-.sub {
-  color: #b99867;
-  font-size: 12px;
-  letter-spacing: 2px;
-  margin-top: 5px;
-  font-family: Georgia, serif;
-}
-
+/* TÍTULOS E SECÇÕES */
 h2 {
-  font-family: Georgia, serif;
   font-size: 15px;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #dfbe87;
-  border-bottom: 1px solid var(--border-dark);
-  padding-bottom: 10px;
+  letter-spacing: 1px;
+  color: var(--gold-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
   margin: 0 0 16px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
-.category {
+.category-label {
   color: var(--text-muted);
   margin: 20px 0 10px;
   text-transform: uppercase;
   font-size: 11px;
-  letter-spacing: 2.5px;
-  font-weight: 700;
+  letter-spacing: 2px;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.category::after {
+.category-label::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: rgba(166, 132, 87, 0.2);
+  background: var(--border-color);
 }
 
-.products {
+.products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
-button.product-btn {
-  border: 1px solid var(--border-dark);
-  border-radius: 10px;
-  background: var(--btn-bg);
-  color: var(--text-main);
+/* CARTÕES DE PRODUTOS */
+.ranch-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   padding: 12px 14px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  text-align: left;
-  font-family: inherit;
-  transition: background 0.2s, transform 0.1s, border-color 0.2s;
+  gap: 10px;
+  transition: all 0.2s ease;
 }
 
-button.product-btn:hover {
-  background: var(--btn-hover);
-  border-color: var(--border-gold);
+.ranch-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(158, 83, 32, 0.3);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
 
-button.product-btn:active {
-  transform: translateY(0);
-}
-
-.product-name {
+.card-name {
+  font-size: 13px;
   font-weight: 500;
-  font-size: 14px;
+  color: var(--text-main);
   pointer-events: none;
 }
 
-.price {
-  white-space: nowrap;
-  color: #f3d08a;
-  font-weight: 700;
-  font-size: 13px;
+.card-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold-light);
   background: rgba(0, 0, 0, 0.4);
   padding: 4px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(194, 142, 78, 0.15);
+  border: 1px solid var(--border-color);
   pointer-events: none;
 }
 
-.receipt {
-  background: 
-    radial-gradient(circle at 20% 20%, rgba(138, 97, 56, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(105, 68, 35, 0.2) 0%, transparent 50%),
-    linear-gradient(135deg, #e6ce9e 0%, #d4bc85 45%, #c2a86f 100%);
-  color: #21130a;
-  padding: 26px 20px;
-  border-radius: 10px;
+/* TALÃO / RECIBO */
+.ranch-receipt {
+  background: #0d0b0a;
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  border-radius: 8px;
   min-height: 420px;
-  font-family: "Courier New", Courier, monospace;
-  box-shadow: inset 0 0 30px rgba(92, 53, 20, 0.35), 0 10px 30px rgba(0,0,0,0.7);
-  border: 2px dashed #997847;
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow: hidden;
+  box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
+  font-family: 'JetBrains Mono', monospace;
 }
 
-.receipt h3 {
+.receipt-top-title {
   text-align: center;
-  margin: 0 0 4px;
-  font-family: Georgia, serif;
+  font-size: 16px;
+  color: var(--gold-light);
   letter-spacing: 2px;
-  font-size: 19px;
-  color: #1f1007;
+  margin-bottom: 2px;
 }
 
-.center { text-align: center; font-size: 11px; color: #523821; font-weight: bold; }
-.line { border-top: 1px dashed #7a5c39; margin: 12px 0; }
+.receipt-sub {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
 
-.receipt-items {
+.receipt-line {
+  border-top: 1px dashed var(--border-color);
+  margin: 10px 0;
+}
+
+.receipt-items-container {
   flex: 1;
   overflow-y: auto;
   max-height: 220px;
   padding-right: 4px;
 }
 
-.item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 8px;
-  margin: 6px 0;
-  font-size: 13px;
-  cursor: pointer;
-  padding: 6px 8px;
-  border-radius: 6px;
-  background: rgba(92, 53, 20, 0.08);
-  transition: background 0.15s, color 0.15s;
-}
-
-.item:hover {
-  background: rgba(138, 40, 40, 0.15);
-  color: #8a2828;
-}
-
-.item .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; }
-.item .amount { white-space: nowrap; font-weight: bold; }
-
-.total {
+.receipt-row {
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
-  font-size: 18px;
-  font-family: Georgia, serif;
-  color: #140a04;
+  font-size: 12px;
+  margin: 6px 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.receipt-row:hover {
+  background: rgba(139, 38, 20, 0.2);
+  border-color: var(--accent-red);
+  color: #ff9b8b;
+}
+
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--gold-light);
   padding-top: 4px;
 }
 
-.discount-line {
+.receipt-discount {
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
-  font-size: 13px;
-  font-family: Georgia, serif;
-  color: #8a2828;
+  font-size: 12px;
+  color: #e5ab43;
   margin-top: 4px;
 }
 
-.actions {
+/* BOTÕES DE AÇÃO */
+.ranch-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   margin-top: 16px;
 }
 
-.action-btn {
-  border: none;
-  border-radius: 10px;
-  padding: 12px 8px;
-  color: white;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.5px;
+.ranch-btn {
+  background: var(--surface-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  font-family: inherit;
-  transition: transform 0.1s, filter 0.2s;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
   text-align: center;
 }
 
-.action-btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.15);
-}
-
-.action-btn:active {
-  transform: translateY(0);
-}
-
-.primary { background: var(--accent-primary); }
-.discount-btn { background: #6b4423; border: 1px solid #c28e4e; }
-.discount-btn.active { background: #3d220d; border-color: #f3d08a; box-shadow: inset 0 0 8px rgba(0,0,0,0.6); }
-.danger { background: var(--accent-danger); }
-
-.manual {
-  display: grid;
-  grid-template-columns: 1fr 90px 70px auto;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-input {
-  background: #0d0603;
-  color: var(--text-main);
-  border: 1px solid var(--border-dark);
-  border-radius: 8px;
-  padding: 11px 12px;
-  font: 14px "Segoe UI", sans-serif;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-input:focus {
-  border-color: var(--border-gold);
-  box-shadow: 0 0 0 2px rgba(194, 142, 78, 0.25);
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.manual button {
-  background: var(--accent-primary);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0 18px;
-  font-size: 14px;
-  transition: background 0.2s, transform 0.1s;
-}
-
-.manual button:hover {
-  background: var(--accent-hover);
+.ranch-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--gold-primary);
+  color: var(--gold-light);
   transform: translateY(-1px);
 }
 
-.manual button:active {
-  transform: translateY(0);
+.ranch-btn.primary {
+  grid-column: 1 / -1;
+  background: var(--gold-primary);
+  border-color: var(--gold-primary);
+  color: #070605;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 14px;
 }
 
-@media(max-width: 860px) {
-  .app { grid-template-columns: 1fr; }
-  .header { grid-column: auto; }
-  .manual { grid-template-columns: 1fr 1fr; }
-  .manual button { grid-column: 1 / -1; padding: 12px; }
-  .actions { grid-template-columns: 1fr; }
+.ranch-btn.primary:hover {
+  background: var(--gold-light);
+  color: #070605;
+  filter: brightness(1.1);
+}
+
+.ranch-btn.danger {
+  background: rgba(139, 38, 20, 0.2);
+  border-color: rgba(139, 38, 20, 0.5);
+  color: #ff9b8b;
+}
+
+.ranch-btn.danger:hover {
+  background: var(--accent-red);
+  color: #fff;
+  border-color: var(--accent-red);
+}
+
+.ranch-btn.active-discount {
+  background: var(--gold-primary);
+  color: #070605;
+  border-color: var(--gold-primary);
+  font-weight: 700;
+}
+
+/* INPUT MANUAL */
+.manual-grid {
+  display: grid;
+  grid-template-columns: 1fr 90px 70px auto;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.ranch-input {
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: 13px 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ranch-input:focus {
+  border-color: var(--gold-primary);
+}
+
+.manual-grid button {
+  background: var(--surface-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--gold-light);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 16px;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.manual-grid button:hover {
+  background: var(--surface-hover);
+  border-color: var(--gold-primary);
+}
+
+/* MODAL DE QUANTIDADE */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(5, 4, 3, 0.9);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: var(--surface-main);
+  border: 1px solid var(--gold-primary);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.95);
+  padding: 24px;
+  border-radius: 12px;
+  width: min(340px, 90%);
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 18px;
+  color: var(--gold-primary);
+  margin-bottom: 4px;
+}
+
+.modal-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+@media(max-width: 1000px) {
+  .ranch-layout { grid-template-columns: 1fr; }
+  .ranch-app, .tab-content.active { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="header panel">
-    <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=400&auto=format&fit=crop" class="saloon-corner-img" alt="Saloon">
-    <div class="title">Família Cortez</div>
-    <div class="sub">CAIXA DO SALOON • REGISTO DE CONSUMO</div>
+
+<!-- MODAL DE QUANTIDADE -->
+<div class="modal-overlay" id="qtyModal">
+  <div class="modal-box">
+    <div class="modal-title">Registar Quantidade</div>
+    <div class="modal-subtitle" id="modalProductName">Artigo</div>
+    <input type="number" id="modalQtyInput" class="ranch-input" style="width: 100%; text-align: center; font-size: 18px; margin-bottom: 16px;" min="1" value="1">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+      <button class="ranch-btn danger" onclick="closeModal()">Cancelar</button>
+      <button class="ranch-btn" style="background: var(--gold-primary); color: #070605; font-weight: 700;" onclick="confirmModal()">Adicionar</button>
+    </div>
   </div>
+</div>
 
-  <section class="panel">
-    <h2>Produtos</h2>
+<div class="ranch-layout">
+  
+  <!-- SIDEBAR -->
+  <aside class="ranch-sidebar">
+    <div class="sidebar-brand">State of Monroe</div>
+    <ul class="sidebar-menu">
+      <li class="sidebar-item active" onclick="switchTab('pos', this)">Caixa Saloon</li>
+      <li class="sidebar-item" onclick="switchTab('menu1', this)">Menus Especiais</li>
+      <li class="sidebar-item" onclick="switchTab('menu2', this)">Carta de Bebidas</li>
+    </ul>
+  </aside>
 
-    <div class="category">Comidas</div>
-    <div class="products" id="foods"></div>
+  <!-- APP PRINCIPAL -->
+  <div class="ranch-app">
+    
+    <!-- ABA 1: POS / CAIXA -->
+    <div id="tab-pos" class="tab-content active">
+      <div class="ranch-header">
+        <div class="ranch-title-group">
+          <h1>Família Cortez</h1>
+          <p>✦ Portal de Registo & Faturação ✦</p>
+        </div>
+      </div>
 
-    <div class="category">Comidas Índio</div>
-    <div class="products" id="indianFoods"></div>
+      <section>
+        <h2>Ementa do Saloon</h2>
 
-    <div class="category">Bebidas</div>
-    <div class="products" id="drinks"></div>
+        <div class="category-label">Comidas</div>
+        <div class="products-grid" id="foods"></div>
 
-    <div class="category">Raspadinhas</div>
-    <div class="products" id="scratch"></div>
+        <div class="category-label">Comidas Índio</div>
+        <div class="products-grid" id="indianFoods"></div>
 
-    <div class="category">Valor Manual / Personalizado</div>
-    <div class="manual">
-      <input id="manualName" placeholder="Nome do artigo">
-      <input id="manualPrice" type="number" step="0.01" min="0" placeholder="Preço ($)">
-      <input id="manualQty" type="number" min="1" value="1" placeholder="Qtd">
-      <button onclick="addManual()">Adicionar</button>
+        <div class="category-label">Bebidas</div>
+        <div class="products-grid" id="drinks"></div>
+
+        <div class="category-label">Raspadinhas</div>
+        <div class="products-grid" id="scratch"></div>
+
+        <div class="category-label" style="margin-top: 22px;">Registo Manual</div>
+        <div class="manual-grid">
+          <input id="manualName" class="ranch-input" placeholder="Artigo...">
+          <input id="manualPrice" class="ranch-input" type="number" step="0.01" min="0" placeholder="Preço">
+          <input id="manualQty" class="ranch-input" type="number" min="1" value="1" placeholder="Qtd">
+          <button onclick="addManual()">Adicionar</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Talão Digital</h2>
+        <div class="ranch-receipt" id="receipt"></div>
+        <div class="ranch-actions">
+          <button class="ranch-btn primary" onclick="copyReceipt()">COPIAR TALÃO PARA O JOGO</button>
+          <button class="ranch-btn" id="discountBtn" onclick="toggleDiscount()">DESC. 10%</button>
+          <button class="ranch-btn" id="discount3Btn" onclick="toggleDiscount3()">DESC. 3%</button>
+          <button class="ranch-btn danger" onclick="clearCart()">ANULAR TUDO</button>
+        </div>
+      </section>
     </div>
-  </section>
 
-  <section class="panel">
-    <h2>Talão / Fatura</h2>
-    <div class="receipt" id="receipt"></div>
-    <div class="actions">
-      <button class="action-btn primary" onclick="copyReceipt()">COPIAR TALÃO</button>
-      <button class="action-btn discount-btn" id="discountBtn" onclick="toggleDiscount()">DESCONTO 10%</button>
-      <button class="action-btn discount-btn" id="discount3Btn" onclick="toggleDiscount3()">DESC. 3%</button>
-      <button class="action-btn danger" onclick="clearCart()">LIMPAR</button>
+    <!-- ABA 2: MENUS -->
+    <div id="tab-menu1" class="tab-content">
+      <div class="menu-placeholder">
+        <h2>Menus Especiais</h2>
+        <p>Espaço reservado para gerir os combos e pacotes de refeições.</p>
+      </div>
     </div>
-  </section>
+
+    <!-- ABA 3: BEBIDAS -->
+    <div id="tab-menu2" class="tab-content">
+      <div class="menu-placeholder">
+        <h2>Carta de Bebidas</h2>
+        <p>Espaço reservado para a lista de destilados e bebidas premium.</p>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
@@ -432,6 +620,15 @@ const products = {
 let cart = [];
 let discountActive = false;
 let discount3Active = false;
+let currentProduct = null;
+
+function switchTab(tabId, element) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+  
+  document.getElementById('tab-' + tabId).classList.add('active');
+  element.classList.add('active');
+}
 
 function playBeep() {
   try {
@@ -440,17 +637,17 @@ function playBeep() {
     const gain = audioCtx.createGain();
     
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.04);
+    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
     
     gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
     
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     
     osc.start();
-    osc.stop(audioCtx.currentTime + 0.04);
+    osc.stop(audioCtx.currentTime + 0.05);
   } catch (e) {}
 }
 
@@ -458,23 +655,56 @@ function money(v) {
   return v.toFixed(2).replace(".", ",") + "$";
 }
 
-function makeButtons(list, id) {
+function makeCards(list, id) {
   const container = document.getElementById(id);
+  if(!container) return;
   container.innerHTML = list.map((p) => `
-    <button class="product-btn" type="button" onclick="addItem('${p[0]}', ${p[1]})">
-      <span class="product-name">${p[0]}</span>
-      <span class="price">${money(p[1])}</span>
-    </button>
+    <div class="ranch-card" onclick="openModal('${p[0]}', ${p[1]})">
+      <span class="card-name">${p[0]}</span>
+      <span class="card-price">${money(p[1])}</span>
+    </div>
   `).join("");
 }
 
-makeButtons(products.foods, "foods");
-makeButtons(products.indianFoods, "indianFoods");
-makeButtons(products.drinks, "drinks");
-makeButtons(products.scratch, "scratch");
+makeCards(products.foods, "foods");
+makeCards(products.indianFoods, "indianFoods");
+makeCards(products.drinks, "drinks");
+makeCards(products.scratch, "scratch");
 
-function addItem(name, price, qty = 1) {
-  if (qty <= 0) return;
+function openModal(name, price) {
+  currentProduct = { name, price };
+  document.getElementById("modalProductName").innerText = name;
+  document.getElementById("modalQtyInput").value = "1";
+  document.getElementById("qtyModal").classList.add("active");
+  setTimeout(() => {
+    const input = document.getElementById("modalQtyInput");
+    input.focus();
+    input.select();
+  }, 50);
+}
+
+function closeModal() {
+  document.getElementById("qtyModal").classList.remove("active");
+  currentProduct = null;
+}
+
+function confirmModal() {
+  if (!currentProduct) return;
+  let qty = parseInt(document.getElementById("modalQtyInput").value);
+  if (isNaN(qty) || qty <= 0) {
+    alert("Insere uma quantidade válida.");
+    return;
+  }
+  addItem(currentProduct.name, currentProduct.price, qty);
+  closeModal();
+}
+
+document.getElementById("modalQtyInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") confirmModal();
+  if (e.key === "Escape") closeModal();
+});
+
+function addItem(name, price, qty) {
   const existing = cart.find(x => x.name === name && x.price === price);
   if (existing) {
     existing.qty += qty;
@@ -516,9 +746,9 @@ function toggleDiscount() {
   discountActive = !discountActive;
   const btn = document.getElementById("discountBtn");
   if (discountActive) {
-    btn.classList.add("active");
+    btn.classList.add("active-discount");
   } else {
-    btn.classList.remove("active");
+    btn.classList.remove("active-discount");
   }
   render();
 }
@@ -527,48 +757,49 @@ function toggleDiscount3() {
   discount3Active = !discount3Active;
   const btn = document.getElementById("discount3Btn");
   if (discount3Active) {
-    btn.classList.add("active");
+    btn.classList.add("active-discount");
   } else {
-    btn.classList.remove("active");
+    btn.classList.remove("active-discount");
   }
   render();
 }
 
 function render() {
   const receipt = document.getElementById("receipt");
+  if(!receipt) return;
   const subtotal = cart.reduce((s, x) => s + x.price * x.qty, 0);
   const discount10Amount = discountActive ? subtotal * 0.10 : 0;
   const discount3Amount = discount3Active ? subtotal * 0.03 : 0;
   const total = subtotal - discount10Amount - discount3Amount;
   
   let rows = cart.map((x, i) => `
-    <div class="item" title="Clique para remover uma unidade" onclick="removeItem(${i})">
-      <span class="name">${x.qty}x ${x.name}</span>
-      <span class="amount">${money(x.price * x.qty)}</span>
+    <div class="receipt-row" title="Clique para remover uma unidade" onclick="removeItem(${i})">
+      <span>${x.qty}x ${x.name}</span>
+      <span>${money(x.price * x.qty)}</span>
     </div>
   `).join("");
 
   let discountHtml = discountActive ? `
-    <div class="discount-line"><span>DESCONTO 10%</span><span>-${money(discount10Amount)}</span></div>
+    <div class="receipt-discount"><span>DESCONTO 10%</span><span>-${money(discount10Amount)}</span></div>
   ` : '';
 
   let discount3Html = discount3Active ? `
-    <div class="discount-line"><span>DESCONTO 3%</span><span>-${money(discount3Amount)}</span></div>
+    <div class="receipt-discount"><span>DESCONTO 3%</span><span>-${money(discount3Amount)}</span></div>
   ` : '';
 
   receipt.innerHTML = `
-    <h3>FAMÍLIA CORTEZ</h3>
-    <div class="center">SALOON • TALÃO DE CONSUMO</div>
-    <div class="line"></div>
-    <div class="receipt-items">
-      ${rows || '<div class="center" style="margin-top: 100px; color: #61462a;">Nenhum artigo adicionado</div>'}
+    <div class="receipt-top-title">FAMÍLIA CORTEZ</div>
+    <div class="receipt-sub">PORTAL DE REGISTO • SALOON</div>
+    <div class="receipt-line"></div>
+    <div class="receipt-items-container">
+      ${rows || '<div style="text-align: center; margin-top: 130px; color: var(--text-muted); font-size: 11px;">Nenhum item registado</div>'}
     </div>
-    <div class="line"></div>
+    <div class="receipt-line"></div>
     ${discountHtml}
     ${discount3Html}
-    <div class="total"><span>TOTAL</span><span>${money(total < 0 ? 0 : total)}</span></div>
-    <div class="line"></div>
-    <div class="center">Obrigado pela preferência!</div>
+    <div class="receipt-total"><span>TOTAL A PAGAR</span><span>${money(total < 0 ? 0 : total)}</span></div>
+    <div class="receipt-line"></div>
+    <div style="text-align: center; font-size: 10px; color: var(--text-muted);">State of Monroe • Obrigado pela preferência</div>
   `;
 }
 
@@ -619,8 +850,8 @@ function clearCart() {
   cart = [];
   discountActive = false;
   discount3Active = false;
-  document.getElementById("discountBtn").classList.remove("active");
-  document.getElementById("discount3Btn").classList.remove("active");
+  document.getElementById("discountBtn").classList.remove("active-discount");
+  document.getElementById("discount3Btn").classList.remove("active-discount");
   render();
 }
 
