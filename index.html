@@ -466,6 +466,12 @@ function toggleDiscount3() {
   render();
 }
 
+function receiptDate() {
+  return new Date().toLocaleDateString('pt-PT', {
+    day: '2-digit', month: '2-digit', year: 'numeric'
+  });
+}
+
 function render() {
   const receipt = document.getElementById("receipt");
   if(!receipt) return;
@@ -497,6 +503,7 @@ function render() {
     <div class="receipt-document-kind">NOTA DE DESPESA</div>
     <div class="receipt-top-title">FAMÍLIA CORTEZ</div>
     <div class="receipt-sub">SALOON DE STRAWBERRY</div>
+    <div class="receipt-sub receipt-date">DATA: ${receiptDate()}</div>
     <div class="receipt-flourish" aria-hidden="true">— ✦ —</div>
     <div class="receipt-ledger-head"><span>ARTIGOS SERVIDOS</span><span>IMPORTÂNCIA</span></div>
     <div class="receipt-items-container">
@@ -516,10 +523,8 @@ function receiptText() {
   const discount3Amount = discount3Active ? subtotal * 0.03 : 0;
   const total = subtotal - discount10Amount - discount3Amount;
   const lines = [
-    'CASA FAMÍLIA CORTEZ',
-    'Saloon de Strawberry',
-    '----- * -----',
     'NOTA DE DESPESA',
+    `Data: ${receiptDate()}`,
     'Deve o estimado freguês pelos consumos:',
     ''
   ];
@@ -541,7 +546,6 @@ function receiptText() {
     `IMPORTÂNCIA A PAGAR: ${money(total < 0 ? 0 : total)}`,
     '',
     'Gratos pela vossa estimada preferência.',
-    'Os nossos respeitos,',
     'Família Cortez'
   );
   return lines.join('\n') + '\n';
@@ -594,6 +598,7 @@ function showReceiptNotice(message, isError = false) {
 async function copyReceipt() {
   if (!cart.length || copyingReceipt) return;
   copyingReceipt = true;
+  render();
   const text = receiptText();
   let copied = false;
   try {
