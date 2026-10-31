@@ -186,10 +186,7 @@
         <div class="category-label">Comidas</div>
         <div class="products-grid" id="foods"></div>
 
-        <div class="category-label">Comidas Índio</div>
-        <div class="products-grid" id="indianFoods"></div>
-
-        <div class="category-label">Bebidas</div>
+<div class="category-label">Bebidas</div>
         <div class="products-grid" id="drinks"></div>
 
         <div class="category-label">Raspadinhas</div>
@@ -265,33 +262,21 @@ const products = {
     ["Café + Tosta Mista", 6.00, "https://i.imgur.com/THn6ANK.png"]
   ],
   foods: [
-    ["Bacalhau com Broa", 3.50],
-    ["Bife Tomahawk", 4.00],
-    ["Baguete Salmão Fumado", 3.00],
-    ["Hamburguer", 3.00],
-    ["Sapateira Recheada", 5.00],
-    ["Alheira à Brás", 3.00],
-    ["Coelho à Caçador", 3.00]
-  ],
-  indianFoods: [
-    ["Caldo Verde", 4.00],
-    ["Cha de Mel", 2.50],
-    ["Ensopado de Javali", 3.50],
-    ["Alheira de Caça", 3.00]
+    ["Ratatouille", 3.00],
+    ["Tarte de Cereja", 1.50],
+    ["Quiche de Carne", 2.50],
+    ["Confit de Canard", 2.50],
+    ["Ensopado de Marisco", 2.50]
   ],
   drinks: [
+    ["Sidra Celta", 1.50],
     ["Cerveja Lager", 2.00],
     ["Cerveja Lambic", 2.00],
-    ["Sidra Celta", 1.50],
-    ["Café", 3.50],
-    ["Vinho Tinto", 5.00],
-    ["Vodka", 7.00],
-    ["Hidromel", 7.00],
-    ["Ponchas", 10.00],
-    ["Gin", 10.00],
-    ["Mojito", 8.00],
-    ["Whiskey", 8.00],
-    ["Tequila", 8.00]
+    ["Cerveja 3 Monts", 1.00],
+    ["Cerveja IPA", 1.50],
+    ["Chá de Cornos", 1.50],
+    ["Chá de Hortelã", 1.00],
+    ["Café", 3.50]
   ],
   scratch: [
     ["Raspadinha de Bronze", 5.00],
@@ -369,7 +354,6 @@ function makeBannerCards(list, id) {
 
 makeBannerCards(products.breakfastMenus, "breakfastMenus");
 makeCards(products.foods, "foods");
-makeCards(products.indianFoods, "indianFoods");
 makeCards(products.drinks, "drinks");
 makeCards(products.scratch, "scratch");
 
