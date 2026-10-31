@@ -169,7 +169,7 @@
     <ul class="sidebar-menu">
       <li><button type="button" class="sidebar-item active" onclick="switchTab('pos', this)">Caixa Saloon</button></li>
       <li><button type="button" class="sidebar-item" onclick="switchTab('menu1', this)">Menus Pequeno-Almoço</button></li>
-      <li><button type="button" class="sidebar-item" onclick="switchTab('menu2', this)">Carta de Bebidas</button></li>
+      <li><button type="button" class="sidebar-item" onclick="switchTab('menu2', this)">Bebida Destilada</button></li>
     </ul>
   </nav>
 
@@ -235,13 +235,14 @@
       <div class="menu-tab-pane">
         <div class="ranch-header">
           <div class="ranch-title-group">
-            <h1>Carta de Bebidas</h1>
-            <p>✦ Garrafeira & Destilados ✦</p>
+            <h1>Bebida Destilada</h1>
+            <p>✦ Garrafeira da Casa ✦</p>
           </div>
         </div>
         <section style="margin-top: 20px;">
-          <h2>Bebidas Premium</h2>
-          <p style="color: var(--text-muted); font-size: 13px;">Espaço reservado para gerir a lista detalhada de bebidas.</p>
+          <h2>Bebida Destilada</h2>
+          <div class="products-grid" id="distilledDrinks"></div>
+          <p class="receipt-tip">Seleciona uma bebida e a quantidade. Consulta a fatura na aba Caixa Saloon.</p>
         </section>
       </div>
     </div>
@@ -277,6 +278,15 @@ const products = {
     ["Chá de Cornos", 1.50],
     ["Chá de Hortelã", 1.00],
     ["Café", 3.50]
+  ],
+  distilledDrinks: [
+    ["Whiskey", 3.84],
+    ["Vinho Branco", 2.75],
+    ["Vinho Tinto", 2.45],
+    ["Tequilla", 4.13],
+    ["Poncha", 3.36],
+    ["Vodka", 3.66],
+    ["Gin", 3.96]
   ],
   scratch: [
     ["Raspadinha de Bronze", 5.00],
@@ -355,6 +365,7 @@ function makeBannerCards(list, id) {
 makeBannerCards(products.breakfastMenus, "breakfastMenus");
 makeCards(products.foods, "foods");
 makeCards(products.drinks, "drinks");
+makeCards(products.distilledDrinks, "distilledDrinks");
 makeCards(products.scratch, "scratch");
 
 function openModal(name, price) {
