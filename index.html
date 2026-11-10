@@ -134,18 +134,24 @@
 }
 
 
-/* Uniform illustrated western menu cards. */
-.ranch-card:not(.illustrated-card)>.menu-card-details{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%}
-#foods,#drinks,#distilledDrinks,#breakfastMenus,#scratch{display:grid;grid-template-columns:repeat(auto-fill,220px);gap:16px;align-items:start}
-.ranch-card.illustrated-card{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;width:220px;min-height:0;padding:0;overflow:hidden;border:1px solid #8b704644;background:#17130e;box-shadow:0 6px 18px #0003;transition:transform .18s,border-color .18s,box-shadow .18s}
-.ranch-card.illustrated-card:hover,.ranch-card.illustrated-card:focus-visible{transform:translateY(-3px);border-color:#c9a764;box-shadow:0 8px 22px #0006}
-.illustrated-card .menu-product-image{display:block;width:100%;height:auto;aspect-ratio:1 / 1;object-fit:cover;border-bottom:1px solid #8b704655;background:#2a2016}
-.illustrated-card .menu-card-details{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px;min-height:112px}
-.illustrated-card .card-name{display:block;min-height:44px;font:15px/1.55 Georgia,serif;color:#e5d9bf;overflow-wrap:anywhere}
-.illustrated-card .card-price{align-self:flex-end;position:static;margin-top:auto;font-size:15px;white-space:nowrap}
-@media(max-width:520px){#foods,#drinks,#distilledDrinks,#breakfastMenus,#scratch{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ranch-card.illustrated-card{width:100%}.illustrated-card .menu-card-details{padding:10px}}
-@media(prefers-reduced-motion:reduce){.ranch-card.illustrated-card{transition:none}}
-
+/* Broad, weathered saloon cards; reuse the existing painted button artwork. */
+.ranch-layout{width:min(1320px,94vw)}
+#foods,#drinks,#distilledDrinks,#breakfastMenus,#scratch{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;align-items:stretch}
+.ranch-card.illustrated-card{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;width:100%;min-width:0;min-height:0;padding:10px;overflow:visible;border:0;border-radius:0;background:var(--btn-dark) center/100% 100% no-repeat,#33281a;box-shadow:0 5px 9px #0005,inset 0 0 0 1px #a58a5740;transform-origin:50% 88%;transition:transform .38s ease-out,box-shadow .38s ease-out;clip-path:polygon(1% 0,23% .5%,46% 0,72% .7%,99% 0,100% 18%,99.5% 39%,100% 63%,99.3% 84%,100% 99%,78% 100%,54% 99.3%,28% 100%,1% 99.5%,0 76%,.6% 54%,0 32%)}
+.ranch-card.illustrated-card::before{content:'';position:absolute;z-index:3;inset:3px;pointer-events:none;border:1px solid #b69b6360;background:repeating-linear-gradient(9deg,transparent 0 16px,#ebd8aa18 17px,transparent 18px 41px);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;padding:5px}
+.ranch-card.illustrated-card::after{content:'';position:absolute;z-index:3;inset:7px;pointer-events:none;border:1px dashed #ceb17b55;box-shadow:inset 0 0 12px #120c0770}
+.ranch-card.illustrated-card:hover,.ranch-card.illustrated-card:focus-visible{transform:translateY(-1px) rotate(-.35deg);background:var(--btn-dark) center/100% 100% no-repeat,#3b2e1d;box-shadow:2px 7px 11px #0007,inset 0 0 0 1px #d4b77980}
+.ranch-card.illustrated-card:nth-child(even):hover{transform:translateY(-1px) rotate(.35deg)}
+.ranch-card.illustrated-card:focus-visible{outline:3px solid #e3c98d;outline-offset:-5px}
+.ranch-card.illustrated-card:active,.ranch-card.illustrated-card:nth-child(even):active{transform:translateY(1px) rotate(0);box-shadow:0 2px 4px #0006;transition-duration:.12s}
+.illustrated-card .menu-product-image{display:block;width:100%;height:auto;aspect-ratio:4 / 3;object-fit:cover;object-position:center;border:1px solid #15100a;background:#2a2016;box-shadow:0 2px 4px #0008}
+.illustrated-card .menu-card-details{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-top:5px;padding:16px 16px 13px;min-height:108px;background:var(--btn-light) center/100% 100% no-repeat;color:#302416}
+.illustrated-card .card-name{display:block;min-height:44px;font:17px/1.35 Crock,Georgia,serif;letter-spacing:.015em;color:#352719;overflow-wrap:anywhere;text-shadow:0 1px #ffffff35}
+.illustrated-card .card-price{align-self:flex-end;position:static;margin-top:auto;padding:0 3px;background:none;font-size:18px;line-height:1.4;color:#4a301b;white-space:nowrap}
+@media(min-width:761px) and (max-width:1150px){#tab-pos.active{grid-template-columns:minmax(0,1fr) minmax(280px,.85fr)}#foods,#drinks,#scratch{grid-template-columns:1fr}}
+@media(max-width:760px){.ranch-layout{width:96vw}#foods,#drinks,#distilledDrinks,#breakfastMenus,#scratch{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ranch-card.illustrated-card{padding:8px}.illustrated-card .menu-card-details{padding:14px 12px;min-height:108px}.illustrated-card .card-name{font-size:16px}}
+@media(max-width:480px){#foods,#drinks,#distilledDrinks,#breakfastMenus,#scratch{grid-template-columns:1fr;gap:18px}.illustrated-card .menu-card-details{min-height:96px}.illustrated-card .card-name{min-height:24px}}
+@media(prefers-reduced-motion:reduce){.ranch-card.illustrated-card,.ranch-card.illustrated-card:hover,.ranch-card.illustrated-card:focus-visible,.ranch-card.illustrated-card:active,.ranch-card.illustrated-card:nth-child(even):hover,.ranch-card.illustrated-card:nth-child(even):active{transition:none;transform:none}}
 
 /* Supplied photograph with subtle warm toning and soft edge blending. */
 .saloon-header .saloon-photo{inset:0}
