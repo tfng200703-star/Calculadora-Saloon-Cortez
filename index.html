@@ -147,10 +147,10 @@
 @media(prefers-reduced-motion:reduce){.ranch-card.illustrated-card{transition:none}}
 
 
-/* Original supplied saloon photograph: natural colours, slight darkening. */
+/* Supplied photograph with subtle warm toning and soft edge blending. */
 .saloon-header .saloon-photo{inset:0}
-.saloon-header .saloon-photo img{object-position:50% 46%;filter:brightness(.85)}
-.saloon-header .saloon-photo::after{background:none}
+.saloon-header .saloon-photo img{object-position:50% 46%;filter:brightness(.80) sepia(.24) saturate(.82)}
+.saloon-header .saloon-photo::after{background:linear-gradient(90deg,rgba(25,20,14,.38),rgba(25,20,14,.08) 55%,rgba(25,20,14,.18)),linear-gradient(0deg,rgba(14,11,8,.55),transparent 48%),linear-gradient(rgba(112,76,34,.10),rgba(112,76,34,.10))}
 .saloon-header .brand-line,.saloon-header .ranch-title-group{text-shadow:0 2px 5px #000,0 1px 16px #000b}
 </style>
 </head>
