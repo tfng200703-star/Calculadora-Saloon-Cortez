@@ -151,7 +151,13 @@
 @media(min-width:761px) and (max-width:1150px){#tab-pos.active{grid-template-columns:minmax(0,1fr) minmax(280px,.85fr)}#foods,#drinks,#scratch{grid-template-columns:1fr}}
 @media(max-width:760px){.ranch-layout{width:96vw}#foods,#drinks,#distilledDrinks,#breakfastMenus,#scratch{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ranch-card.illustrated-card{padding:8px}.illustrated-card .menu-card-details{padding:10px 12px;min-height:82px}.illustrated-card .card-name{font-size:16px}}
 @media(max-width:480px){#foods,#drinks,#distilledDrinks,#breakfastMenus,#scratch{grid-template-columns:1fr;gap:18px}.illustrated-card .menu-card-details{min-height:82px}.illustrated-card .card-name{min-height:38px}}
-@media(prefers-reduced-motion:reduce){.ranch-card.illustrated-card,.ranch-card.illustrated-card:hover,.ranch-card.illustrated-card:focus-visible,.ranch-card.illustrated-card:active,.ranch-card.illustrated-card:nth-child(even):hover,.ranch-card.illustrated-card:nth-child(even):active{transition:none;transform:none}}
+/* Explicitly requested short card feedback, including reduced-motion browsers. */
+@media(prefers-reduced-motion:reduce){
+.ranch-card.illustrated-card{transition:transform .18s ease-out,box-shadow .18s ease-out!important}
+.ranch-card.illustrated-card:hover,.ranch-card.illustrated-card:focus-visible{transform:translateY(-3px) rotate(-.7deg)}
+.ranch-card.illustrated-card:nth-child(even):hover{transform:translateY(-3px) rotate(.7deg)}
+.ranch-card.illustrated-card:active,.ranch-card.illustrated-card:nth-child(even):active{transform:translateY(1px) rotate(0);transition-duration:.1s!important}
+}
 
 /* Supplied photograph with subtle warm toning and soft edge blending. */
 .saloon-header .saloon-photo{inset:0}
